@@ -71,74 +71,74 @@ contract GenesisId {
     }
 
     function createUser(
-        string memory username,
-        BasicInfo memory basicInfo,
-        ProfessionalInfo memory professionalInfo,
-        SocialLinks memory socialLinks,
-        Visibility memory visibility
-    ) public onlyUniqueUsername(username) {
-        User storage user = users[username];
-        user.firstName = basicInfo.firstName;
-        user.lastName = basicInfo.lastName;
-        user.username = username;
-        user.email = basicInfo.email;
-        user.homeAddress = basicInfo.homeAddress;
-        user.dateOfBirth = basicInfo.dateOfBirth;
-        user.phoneNumber = basicInfo.phoneNumber;
-        user.education = professionalInfo.education;
-        user.workHistory = professionalInfo.workHistory;
-        user.jobTitle = professionalInfo.jobTitle;
-        user.x = socialLinks.x;
-        user.instagram = socialLinks.instagram;
-        user.tiktok = socialLinks.tiktok;
-        user.youtube = socialLinks.youtube;
-        user.linkedin = socialLinks.linkedin;
-        user.info = professionalInfo.info;
-        user.skills = professionalInfo.skills;
-        user.imageURL = professionalInfo.imageURL;
+        string memory _username,
+        BasicInfo memory _basicInfo,
+        ProfessionalInfo memory _professionalInfo,
+        SocialLinks memory _socialLinks,
+        Visibility memory _visibility
+    ) public onlyUniqueUsername(_username) {
+        User storage user = users[_username];
+        user.firstName = _basicInfo.firstName;
+        user.lastName = _basicInfo.lastName;
+        user.username = _username;
+        user.email = _basicInfo.email;
+        user.homeAddress = _basicInfo.homeAddress;
+        user.dateOfBirth = _basicInfo.dateOfBirth;
+        user.phoneNumber = _basicInfo.phoneNumber;
+        user.education = _professionalInfo.education;
+        user.workHistory = _professionalInfo.workHistory;
+        user.jobTitle = _professionalInfo.jobTitle;
+        user.x = _socialLinks.x;
+        user.instagram = _socialLinks.instagram;
+        user.tiktok = _socialLinks.tiktok;
+        user.youtube = _socialLinks.youtube;
+        user.linkedin = _socialLinks.linkedin;
+        user.info = _professionalInfo.info;
+        user.skills = _professionalInfo.skills;
+        user.imageURL = _professionalInfo.imageURL;
         user.exists = true;
-        user.visibility = visibility;
-        usernames[username] = true;
-        addressToUsername[msg.sender] = username;
+        user.visibility = _visibility;
+        usernames[_username] = true;
+        addressToUsername[msg.sender] = _username;
     }
 
     function editUser(
-        string memory username,
-        BasicInfo memory basicInfo,
-        ProfessionalInfo memory professionalInfo,
-        SocialLinks memory socialLinks,
-        Visibility memory visibility
+        string memory _username,
+        BasicInfo memory _basicInfo,
+        ProfessionalInfo memory _professionalInfo,
+        SocialLinks memory _socialLinks,
+        Visibility memory _visibility
     ) public {
-        require(users[username].exists, "User does not exist.");
-        User storage user = users[username];
-        user.firstName = basicInfo.firstName;
-        user.lastName = basicInfo.lastName;
-        user.email = basicInfo.email;
-        user.homeAddress = basicInfo.homeAddress;
-        user.dateOfBirth = basicInfo.dateOfBirth;
-        user.phoneNumber = basicInfo.phoneNumber;
-        user.education = professionalInfo.education;
-        user.workHistory = professionalInfo.workHistory;
-        user.jobTitle = professionalInfo.jobTitle;
-        user.x = socialLinks.x;
-        user.instagram = socialLinks.instagram;
-        user.tiktok = socialLinks.tiktok;
-        user.youtube = socialLinks.youtube;
-        user.linkedin = socialLinks.linkedin;
-        user.info = professionalInfo.info;
-        user.skills = professionalInfo.skills;
-        user.imageURL = professionalInfo.imageURL;
-        user.visibility = visibility;
+        require(users[_username].exists, "User does not exist.");
+        User storage user = users[_username];
+        user.firstName = _basicInfo.firstName;
+        user.lastName = _basicInfo.lastName;
+        user.email = _basicInfo.email;
+        user.homeAddress = _basicInfo.homeAddress;
+        user.dateOfBirth = _basicInfo.dateOfBirth;
+        user.phoneNumber = _basicInfo.phoneNumber;
+        user.education = _professionalInfo.education;
+        user.workHistory = _professionalInfo.workHistory;
+        user.jobTitle = _professionalInfo.jobTitle;
+        user.x = _socialLinks.x;
+        user.instagram = _socialLinks.instagram;
+        user.tiktok = _socialLinks.tiktok;
+        user.youtube = _socialLinks.youtube;
+        user.linkedin = _socialLinks.linkedin;
+        user.info = _professionalInfo.info;
+        user.skills = _professionalInfo.skills;
+        user.imageURL = _professionalInfo.imageURL;
+        user.visibility = _visibility;
     }
 
-    function getUserByUsername(string memory username) public view returns (
+    function getUserByUsername(string memory _username) public view returns (
         BasicInfo memory basicInfo,
         ProfessionalInfo memory professionalInfo,
         SocialLinks memory socialLinks,
         Visibility memory visibility
     ) {
-        require(users[username].exists, "User does not exist.");
-        User storage user = users[username];
+        require(users[_username].exists, "User does not exist.");
+        User storage user = users[_username];
         basicInfo = BasicInfo(
             user.firstName,
             user.lastName,
@@ -166,40 +166,40 @@ contract GenesisId {
         return (basicInfo, professionalInfo, socialLinks, visibility);
     }
 
-    function getUserByAddress(address userAddress) public view returns (
+    function getUserByAddress(address _userAddress) public view returns (
         BasicInfo memory basicInfo,
         ProfessionalInfo memory professionalInfo,
         SocialLinks memory socialLinks,
         Visibility memory visibility
     ) {
-        string memory username = addressToUsername[userAddress];
+        string memory username = addressToUsername[_userAddress];
         return getUserByUsername(username);
     }
 
-    function getUsernameByAddress(address userAddress) public view returns (string memory) {
-        return addressToUsername[userAddress];
+    function getUsernameByAddress(address _userAddress) public view returns (string memory) {
+        return addressToUsername[_userAddress];
     }
 
     function setVisibility(
-        string memory username, 
-        bool education,
-        bool workHistory,
-        bool phoneNumber,
-        bool homeAddress,
-        bool dateOfBirth
+        string memory _username, 
+        bool _education,
+        bool _workHistory,
+        bool _phoneNumber,
+        bool _homeAddress,
+        bool _dateOfBirth
     ) public {
-        require(users[username].exists, "User does not exist.");
-        User storage user = users[username];
-        user.visibility.education = education;
-        user.visibility.workHistory = workHistory;
-        user.visibility.phoneNumber = phoneNumber;
-        user.visibility.homeAddress = homeAddress;
-        user.visibility.dateOfBirth = dateOfBirth;
+        require(users[_username].exists, "User does not exist.");
+        User storage user = users[_username];
+        user.visibility.education = _education;
+        user.visibility.workHistory = _workHistory;
+        user.visibility.phoneNumber = _phoneNumber;
+        user.visibility.homeAddress = _homeAddress;
+        user.visibility.dateOfBirth = _dateOfBirth;
     }
 
-    function getVisibility(string memory username) public view returns (Visibility memory) {
-        require(users[username].exists, "User does not exist.");
-        return users[username].visibility;
+    function getVisibility(string memory _username) public view returns (Visibility memory) {
+        require(users[_username].exists, "User does not exist.");
+        return users[_username].visibility;
     }
 }
 
