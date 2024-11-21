@@ -21,4 +21,4 @@ module.exports = {
   throwOnTransactionFailures: true,
   throwOnCallFailures: true,
   loggingEnabled: true,
-};
+}
